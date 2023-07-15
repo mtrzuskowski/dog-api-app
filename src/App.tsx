@@ -1,5 +1,5 @@
 import "./App.css";
-import PageWrapper from "./layouts/PageWrapper";
+import PageLayout from "./layouts/PageLayout";
 import HomePage from "./pages/HomePage";
 import SearchPage from "./pages/SearchPage";
 import {
@@ -72,7 +72,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route
       path="/"
-      element={<PageWrapper />}
+      element={<PageLayout />}
       loader={async () => {
         const dogNameList = await axios
           .get<TDogBreedData>(`https://dog.ceo/api/breeds/list/all`)
