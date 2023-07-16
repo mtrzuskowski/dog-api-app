@@ -1,7 +1,7 @@
 import "./App.css";
-import PageWrapper from "./layouts/PageWrapper";
-import HomePage from "./pages/HomePage";
-import SearchPage from "./pages/SearchPage";
+import PageLayout from "./layouts/PageLayout";
+import HomePage from "./pages/HomePage/HomePage";
+import SearchPage from "./pages/SearchPage/SearchPage";
 import {
   Route,
   RouterProvider,
@@ -25,12 +25,12 @@ type TDogImgData = {
   signal: string;
 };
 
-interface DogInfo {
+export interface DogInfo {
   breed: string;
   imgUrl: string;
 }
 
-type DogInfoList = DogInfo[];
+export type DogInfoList = DogInfo[];
 
 const stringifyBreeds = (breeds: TDogBreedList) => {
   const keys = Object.keys(breeds) as (keyof typeof breeds)[];
@@ -72,7 +72,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route
       path="/"
-      element={<PageWrapper />}
+      element={<PageLayout />}
       loader={async () => {
         const dogNameList = await axios
           .get<TDogBreedData>(`https://dog.ceo/api/breeds/list/all`)

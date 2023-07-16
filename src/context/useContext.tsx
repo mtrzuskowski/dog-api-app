@@ -1,1 +1,0 @@
-import { GlobalContextProvider } from "./GlobalContext";
