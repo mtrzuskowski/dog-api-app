@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { NavLink } from "react-router-dom";
-import OvalSvg from "../components/OvalSvg";
-
+import { LinkProps } from "./PageLayout";
+import { Svg } from "../components/OvalFilter/OvalSvg";
 export const PageWrapper = styled.div`
   position: relative;
   height: 100vh;
@@ -23,25 +23,33 @@ export const Nav = styled.nav`
   grid-template-columns: 1fr 1fr;
 `;
 
-export const Link = styled(NavLink)`
+const gooAnimationAppear = keyframes`
+  0% {
+    transform : translate(-50%, 70%) scale(0);
+  }
+
+  100% {
+    transform: translate(-50%, 70%) scale(1);
+  }
+`;
+
+export const Link = styled(NavLink)<LinkProps>`
   position: relative;
   text-align: center;
   height: 100%;
   width: 100%;
-  filter: ("#goo");
-  &:before {
-    width: 5vw;
-    height: 5vh;
-    position: absolute;
-    content: "";
-    display: inline-block;
-    background: #1f1e2a;
-    border-radius: 50%;
-    transition: transform 1s ease;
-    left: 50%;
-    top: 50%;
-    transform: translate(100%, 50%);
-    z-index: -1;
+
+  &:hover ${Svg} {
+    animation: ${({ active }) =>
+      active ? "none" : "${gooAnimationAppear} 1s ease;"};
+    animation-fill-mode: forwards;
+  }
+
+  & ${Svg} {
+    transform: ${({ active }) =>
+      active
+        ? "translate(-50%, 60%) scale(1);"
+        : "translate(-50%, 60%) scale(0);"};
   }
 `;
 
@@ -52,10 +60,4 @@ export const LinkText = styled.p`
   transform: translate(-50%, -50%);
   font-weight: 700;
   color: #1f1e2a;
-`;
-
-export const Oval = styled(OvalSvg)`
-  background-color: red;
-  width: 10px;
-  display: inline-block;
 `;

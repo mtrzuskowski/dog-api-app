@@ -5,24 +5,47 @@ import {
   Nav,
   Link,
   LinkText,
-  Oval,
 } from "./PageLayoutStyles.js";
+import OvalSvg from "../components/OvalFilter/OvalSvg.js";
+import { useState } from "react";
+
+export interface LinkProps {
+  name: string;
+  onClick: Function;
+  active: boolean;
+}
 
 const PageLayout = () => {
+  const [activeButton, setActiveButton] = useState("home");
+
   return (
     <PageWrapper>
       <PageHeader>
         <Nav>
-          <Link to="/">
+          <Link
+            name="home"
+            onClick={() => {
+              setActiveButton("home");
+            }}
+            active={activeButton === "home" ? true : false}
+            to="/"
+          >
             {" "}
             <LinkText>Home</LinkText>
-            <Oval />
+            <OvalSvg />
           </Link>
 
-          <Link to="/search">
+          <Link
+            name="search"
+            onClick={() => {
+              setActiveButton("search");
+            }}
+            active={activeButton === "search" ? true : false}
+            to="/search"
+          >
             {" "}
             <LinkText>Search</LinkText>
-            <Oval />
+            <OvalSvg />
           </Link>
         </Nav>
       </PageHeader>
