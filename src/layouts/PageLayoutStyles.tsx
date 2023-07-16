@@ -40,14 +40,14 @@ export const Link = styled(NavLink)<LinkProps>`
   width: 100%;
 
   &:hover ${Svg} {
-    animation: ${({ active }) =>
-      active ? "none" : "${gooAnimationAppear} 1s ease;"};
+    animation: ${({ isactive }) =>
+      isactive ? "none" : "${gooAnimationAppear} 1s ease;"};
     animation-fill-mode: forwards;
   }
 
   & ${Svg} {
-    transform: ${({ active }) =>
-      active
+    transform: ${({ isactive }) =>
+      isactive
         ? "translate(-50%, 60%) scale(1);"
         : "translate(-50%, 60%) scale(0);"};
   }

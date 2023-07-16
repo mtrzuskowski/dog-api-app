@@ -25,7 +25,7 @@ type TDogImgData = {
   signal: string;
 };
 
-interface DogInfo {
+export interface DogInfo {
   breed: string;
   imgUrl: string;
 }

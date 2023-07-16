@@ -13,7 +13,7 @@ import { useState } from "react";
 export interface LinkProps {
   name: string;
   onClick: Function;
-  active: boolean;
+  isactive: string;
 }
 
 const PageLayout = () => {
@@ -28,7 +28,7 @@ const PageLayout = () => {
             onClick={() => {
               setActiveButton("home");
             }}
-            active={activeButton === "home" ? true : false}
+            isactive={activeButton === "home" ? "true" : "false"}
             to="/"
           >
             {" "}
@@ -41,7 +41,7 @@ const PageLayout = () => {
             onClick={() => {
               setActiveButton("search");
             }}
-            active={activeButton === "search" ? true : false}
+            isactive={activeButton === "search" ? "true" : "false"}
             to="/search"
           >
             {" "}

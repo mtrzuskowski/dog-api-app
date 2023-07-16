@@ -20,7 +20,7 @@ const HomePage = () => {
         <BreedListWrapper listLength={dogInfoList.length}>
           {dogInfoList.map((dogInfo) => {
             return (
-              <BreedWrapper>
+              <BreedWrapper key={dogInfo.breed}>
                 <BreedText>{dogInfo.breed}</BreedText>
               </BreedWrapper>
             );
