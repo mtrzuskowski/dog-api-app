@@ -1,7 +1,7 @@
 import "./App.css";
 import PageLayout from "./layouts/PageLayout";
-import HomePage from "./pages/HomePage";
-import SearchPage from "./pages/SearchPage";
+import HomePage from "./pages/HomePage/HomePage";
+import SearchPage from "./pages/SearchPage/SearchPage";
 import {
   Route,
   RouterProvider,
@@ -30,7 +30,7 @@ interface DogInfo {
   imgUrl: string;
 }
 
-type DogInfoList = DogInfo[];
+export type DogInfoList = DogInfo[];
 
 const stringifyBreeds = (breeds: TDogBreedList) => {
   const keys = Object.keys(breeds) as (keyof typeof breeds)[];

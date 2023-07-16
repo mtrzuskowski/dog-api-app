@@ -5,6 +5,7 @@ import {
   Nav,
   Link,
   LinkText,
+  MainContentContainer,
 } from "./PageLayoutStyles.js";
 import OvalSvg from "../components/OvalFilter/OvalSvg.js";
 import { useState } from "react";
@@ -49,9 +50,9 @@ const PageLayout = () => {
           </Link>
         </Nav>
       </PageHeader>
-      <main>
+      <MainContentContainer>
         <Outlet />
-      </main>
+      </MainContentContainer>
     </PageWrapper>
   );
 };

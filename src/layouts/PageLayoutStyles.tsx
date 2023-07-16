@@ -4,16 +4,16 @@ import { LinkProps } from "./PageLayout";
 import { Svg } from "../components/OvalFilter/OvalSvg";
 export const PageWrapper = styled.div`
   position: relative;
-  height: 100vh;
 `;
 
 export const PageHeader = styled.header`
   position: sticky;
   grid-auto-columns: 50% 50%;
-  height: 4em;
+  height: 10vh;
   width: 100%;
   top: 0;
   background-color: #f6b662;
+  z-index: 1;
 `;
 
 export const Nav = styled.nav`
@@ -60,4 +60,9 @@ export const LinkText = styled.p`
   transform: translate(-50%, -50%);
   font-weight: 700;
   color: #1f1e2a;
+`;
+
+export const MainContentContainer = styled.main`
+  position: relative;
+  width: 100%;
 `;
