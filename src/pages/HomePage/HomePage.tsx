@@ -9,7 +9,7 @@ import {
 import { DogInfoList } from "../../App";
 
 export interface ListProps {
-  listLength: number;
+  $listLength: number;
 }
 
 const HomePage = () => {
@@ -17,7 +17,7 @@ const HomePage = () => {
   return (
     <HomePageContainer>
       <BreedListContainer>
-        <BreedListWrapper listLength={dogInfoList.length}>
+        <BreedListWrapper $listLength={dogInfoList.length}>
           {dogInfoList.map((dogInfo) => {
             return (
               <BreedWrapper key={dogInfo.breed}>

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouteLoaderData } from "react-router-dom";
+import axios from "axios";
 import { DogInfoList } from "../../App";
 import {
   SearchContainer,
@@ -13,9 +14,11 @@ export interface SuggestionsProps {
   hidden: boolean;
 }
 
+let dogBreeds: string[];
+
 const SearchBar = () => {
   const [value, setValue] = useState("");
-  const [suggestions, setSuggestions] = useState(
+  const [suggestions, setSuggestions] = useState<string[]>(
     (useRouteLoaderData("0") as DogInfoList).map((breedInfo) => {
       return breedInfo.breed;
     })
@@ -23,8 +26,20 @@ const SearchBar = () => {
   const [hideSuggestions, setHideSuggestions] = useState<boolean>(true);
   const [result, setResult] = useState<string | undefined>("");
 
+  useEffect(() => {
+    dogBreeds = suggestions;
+  }, []);
+
+  useEffect(() => {
+    if (value === "") {
+      setSuggestions(suggestions);
+      return;
+    }
+    const tmpSuggestions = dogBreeds.filter((breed) => breed.includes(value));
+    setSuggestions(tmpSuggestions);
+  }, [value]);
+
   const findResult = (breed: string) => {
-    console.log("Hej");
     setResult(suggestions.find((suggestion) => suggestion === breed));
   };
 
@@ -35,7 +50,7 @@ const SearchBar = () => {
   const handleBlur = () => {
     setTimeout(() => {
       setHideSuggestions(true);
-    }, 200);
+    }, 400);
   };
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +66,9 @@ const SearchBar = () => {
           value={value}
           onChange={handleSearchInputChange}
           onFocus={handleFocus}
-          onBlur={handleBlur}
+          onBlur={async () => {
+            handleBlur();
+          }}
         />
         <Suggestions hidden={hideSuggestions}>
           {suggestions.map((suggestion) => {
@@ -59,7 +76,7 @@ const SearchBar = () => {
               <Suggestion
                 key={suggestion}
                 onClick={() => {
-                  console.log("suggestion");
+                  findResult(suggestion);
                 }}
               >
                 {suggestion}

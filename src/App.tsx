@@ -62,6 +62,9 @@ const mapImageToBreed = async (
         .then((res) => {
           return res.data.message;
         });
+      if (breed.includes("/")) {
+        breed = breed.split("/").reverse().join(" ");
+      }
       return { breed: breed, imgUrl: breedImg };
     })
   );
