@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import { useRouteLoaderData } from "react-router-dom";
-import axios from "axios";
 import { DogInfoList } from "../../App";
 import {
-  SearchContainer,
+  SearchPageContainer,
   SearchInput,
-  Suggestion,
+  SearchWrapper,
+  SuggestionWrapper,
   Suggestions,
+  SuggestionText,
 } from "./styles/SearchBarStyles";
 import SearchResult from "./SearchResult";
 
 export interface SuggestionsProps {
-  hidden: boolean;
+  quantity: number;
 }
 
 let dogBreeds: string[];
@@ -23,7 +24,6 @@ const SearchBar = () => {
       return breedInfo.breed;
     })
   );
-  const [hideSuggestions, setHideSuggestions] = useState<boolean>(true);
   const [result, setResult] = useState<string | undefined>("");
 
   useEffect(() => {
@@ -32,7 +32,13 @@ const SearchBar = () => {
 
   useEffect(() => {
     if (value === "") {
-      setSuggestions(suggestions);
+      let tmpSuggestions = [];
+      for (let i = 0; i < 3; i++) {
+        tmpSuggestions.push(
+          dogBreeds[Math.floor(Math.random() * dogBreeds.length)]
+        );
+      }
+      setSuggestions(tmpSuggestions);
       return;
     }
     const tmpSuggestions = dogBreeds.filter((breed) => breed.includes(value));
@@ -43,49 +49,37 @@ const SearchBar = () => {
     setResult(suggestions.find((suggestion) => suggestion === breed));
   };
 
-  const handleFocus = () => {
-    setHideSuggestions(false);
-  };
-
-  const handleBlur = () => {
-    setTimeout(() => {
-      setHideSuggestions(true);
-    }, 400);
-  };
-
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
   return (
     <>
-      <SearchContainer>
-        <SearchInput
-          type="Search"
-          placeholder="Search breed..."
-          value={value}
-          onChange={handleSearchInputChange}
-          onFocus={handleFocus}
-          onBlur={async () => {
-            handleBlur();
-          }}
-        />
-        <Suggestions hidden={hideSuggestions}>
+      <SearchPageContainer>
+        <SearchWrapper>
+          <SearchInput
+            type="Search"
+            placeholder="Search breed..."
+            value={value}
+            onChange={handleSearchInputChange}
+          />
+        </SearchWrapper>
+        <Suggestions quantity={suggestions.length}>
           {suggestions.map((suggestion) => {
             return (
-              <Suggestion
+              <SuggestionWrapper
                 key={suggestion}
                 onClick={() => {
                   findResult(suggestion);
                 }}
               >
-                {suggestion}
-              </Suggestion>
+                <SuggestionText>{suggestion}</SuggestionText>
+              </SuggestionWrapper>
             );
           })}
         </Suggestions>
-      </SearchContainer>
-      {result && <SearchResult result={result} />}
+      </SearchPageContainer>
+      {/* {result && <SearchResult result={result} />} */}
     </>
   );
 };

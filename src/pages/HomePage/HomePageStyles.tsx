@@ -19,7 +19,7 @@ export const BreedListWrapper = styled.div<ListProps>`
   height: 100%;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: ${($listLength) => `repeat(${$listLength}, 3em)`};
+  grid-template-rows: ${({ $listLength }) => `repeat(${$listLength}, 3em)`};
 `;
 
 export const BreedWrapper = styled.div`
