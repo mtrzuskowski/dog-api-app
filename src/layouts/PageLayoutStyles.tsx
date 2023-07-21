@@ -74,13 +74,18 @@ export const Link = styled(NavLink)<LinkProps>`
   }
 `;
 
-export const LinkText = styled.p`
+export const NavIconWrapper = styled.div`
   position: absolute;
   left: 50%;
   top: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transform: translate(-50%, -50%);
-  font-weight: 700;
-  color: #1f1e2a;
+  font-size: 2em;
+  height: 8vh;
+  width: 8vh;
+  color: #2a82f4;
 `;
 
 export const MainContentContainer = styled.main`

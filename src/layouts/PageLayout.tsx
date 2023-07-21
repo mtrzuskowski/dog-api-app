@@ -4,11 +4,13 @@ import {
   PageHeader,
   Nav,
   Link,
-  LinkText,
+  NavIconWrapper,
   MainContentContainer,
 } from "./PageLayoutStyles.js";
 import OvalSvg from "../components/OvalFilter/OvalSvg.js";
 import { useState } from "react";
+import { PiDog } from "react-icons/pi";
+import { BiSolidSearch } from "react-icons/bi";
 
 export interface LinkProps {
   name: string;
@@ -31,8 +33,10 @@ const PageLayout = () => {
             to="/"
           >
             {" "}
-            <LinkText>Home</LinkText>
             <OvalSvg />
+            <NavIconWrapper>
+              <PiDog />
+            </NavIconWrapper>
           </Link>
 
           <Link
@@ -44,8 +48,10 @@ const PageLayout = () => {
             to="/search"
           >
             {" "}
-            <LinkText>Search</LinkText>
             <OvalSvg />
+            <NavIconWrapper>
+              <BiSolidSearch />
+            </NavIconWrapper>
           </Link>
         </Nav>
       </PageHeader>
