@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import { useBreedsData, useFullDogsData } from "../../hooks/hooks";
 import {
-  SuggestionsWrapper,
+  SuggestionsContainer,
   SuggestionWrapper,
-  SuggestionText,
   SuggestionImg,
+  BreedNameWrapper,
+  BreedName,
   ImgContainer,
   ImgWrapper,
 } from "./styles/SuggestionsStyles";
 
 export interface ContainerProps {
-  quantity: number;
+  $quantity: number;
 }
 
 interface SuggestionsProps {
@@ -43,22 +44,29 @@ const Suggestions = ({ searchInput }: SuggestionsProps) => {
     );
     setSuggestions(tmpSuggestions);
   }, [searchInput]);
+  console.log(dogsFullData);
 
   return (
-    <SuggestionsWrapper quantity={suggestions.length}>
-      {suggestions.map((suggestion, i) => {
+    <SuggestionsContainer $quantity={suggestions.length}>
+      {suggestions.map((suggestion) => {
         return (
           <SuggestionWrapper key={suggestion}>
             <ImgContainer>
               <ImgWrapper>
-                <SuggestionImg src={dogsFullData[i].imgUrl} />
+                <SuggestionImg
+                  src={
+                    dogsFullData.find((dog) => suggestion === dog.breed)?.imgUrl
+                  }
+                />
               </ImgWrapper>
             </ImgContainer>
-            <SuggestionText>{suggestion}</SuggestionText>
+            <BreedNameWrapper>
+              <BreedName>{suggestion}</BreedName>
+            </BreedNameWrapper>
           </SuggestionWrapper>
         );
       })}
-    </SuggestionsWrapper>
+    </SuggestionsContainer>
   );
 };
 
