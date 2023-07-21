@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import { NavLink } from "react-router-dom";
 import { LinkProps } from "./PageLayout";
 import { Svg } from "../components/OvalFilter/OvalSvg";
@@ -33,6 +33,16 @@ const gooAnimationAppear = keyframes`
   }
 `;
 
+const gooAnimationDisappear = keyframes`
+  0% {
+    transform: translate(-50%, 70%) scale(1);
+  }
+  
+  100% {
+    transform : translate(-50%, 70%) scale(0);
+  }
+`;
+
 export const Link = styled(NavLink)<LinkProps>`
   position: relative;
   text-align: center;
@@ -40,14 +50,25 @@ export const Link = styled(NavLink)<LinkProps>`
   width: 100%;
 
   &:hover ${Svg} {
-    animation: ${({ isactive }) =>
-      isactive ? "none" : "${gooAnimationAppear} 1s ease;"};
+    animation: ${({ $active }) =>
+      $active
+        ? "none"
+        : css`
+            ${gooAnimationAppear} 1s ease;
+          `};
     animation-fill-mode: forwards;
   }
 
   & ${Svg} {
-    transform: ${({ isactive }) =>
-      isactive
+    animation: ${({ $active }) =>
+      $active
+        ? "none"
+        : css`
+            ${gooAnimationDisappear} 1s ease;
+          `};
+    animation-fill-mode: forwards;
+    transform: ${({ $active }) =>
+      $active
         ? "translate(-50%, 60%) scale(1);"
         : "translate(-50%, 60%) scale(0);"};
   }
