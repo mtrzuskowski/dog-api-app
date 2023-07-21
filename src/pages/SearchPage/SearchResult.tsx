@@ -1,5 +1,5 @@
 import { useRouteLoaderData } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DogInfoList, DogInfo } from "../../App";
 
 interface SearchProps {
@@ -9,11 +9,14 @@ interface SearchProps {
 const SearchResult = ({ result }: SearchProps) => {
   const dogInfoList = useRouteLoaderData("0") as DogInfoList;
   const [foundItem, setFoundItem] = useState<undefined | DogInfo>(undefined);
-  setFoundItem(
-    dogInfoList.find((dog) => {
-      return dog.breed === result;
-    })
-  );
+  useEffect(() => {
+    setFoundItem(
+      dogInfoList.find((dog) => {
+        return dog.breed === result;
+      })
+    );
+  }, [result]);
+
   return (
     <div>
       {foundItem !== undefined ? (
